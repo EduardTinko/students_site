@@ -1,0 +1,21 @@
+<style>
+table, th, td {
+  border:1px solid red;
+}
+</style>
+<table style="width:50%">
+    <tr>
+        <th>ID</th>
+        <th>GROUP NAME</th>
+        <th>CURATOR</th>
+    </tr>
+    {% for item in group %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.curator }}</td>
+    </tr>
+    {% endfor %}
+
+
+</table>
