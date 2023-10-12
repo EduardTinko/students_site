@@ -1,4 +1,5 @@
 # Create your views here.
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
@@ -32,8 +33,11 @@ def teacher_edit(request, pk):
         form.save()
         return redirect("teacher_list")
     if "delete" in request.POST:
-        teacher.delete()
-        return redirect("teacher_list")
+        groups = teacher.group.all()
+        if not groups:
+            teacher.delete()
+            return redirect("teacher_list")
+        return HttpResponse("<h3>This teacher has groups and cannot be deleted</h3>")
     return render(request, "teacher_edit.html", {"form": form})
 
 
@@ -49,6 +53,7 @@ def group_form(request):
     form = GroupForm(request.POST)
     if form.is_valid():
         form.save()
+        form.instance.students.set(form.cleaned_data['students'])
         return redirect("group_list")
     return render(request, "group_form.html", {"form": form})
 
@@ -97,6 +102,7 @@ def add_student(request, pk):
     form = GroupForm(request.POST, instance=group)
     if form.is_valid():
         form.save()
-        form.instance.students.set(form.cleaned_data["students"])
-        return redirect("student_list")
+        for student in form.cleaned_data["students"]:
+            form.instance.students.add(student)
+        return redirect("group_list")
     return render(request, "add_student.html", {"form": form, "group": group})
