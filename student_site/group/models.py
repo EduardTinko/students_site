@@ -16,7 +16,7 @@ class Teacher(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=50)
-    curator = models.ForeignKey(Teacher, on_delete=models.PROTECT)
+    curator = models.ForeignKey(Teacher, on_delete=models.PROTECT, related_name='group')
 
     def __str__(self):
         return f"ID: {self.id} Group name: {self.name}"
