@@ -15,7 +15,6 @@ table, th, td {
          <td align="center">{{ item.id }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.curator }}</td>
-        <td>Students in the group: {{ item.students.all.count }}</td>
         <td>
             {% for student in item.students.all %}
                 <li>
