@@ -54,7 +54,7 @@ class GroupForm(forms.ModelForm):
     students = forms.ModelMultipleChoiceField(
         queryset=Student.objects.all(),
         required=False,
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple,
     )
 
     class Meta:
@@ -72,7 +72,7 @@ class StudentForm(forms.ModelForm):
     group = forms.ModelMultipleChoiceField(
         queryset=Group.objects.all(),
         required=False,
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple,
     )
     birth_date = forms.DateField(
         widget=SelectDateWidget(years=range(1900, datetime.datetime.now().year))

@@ -53,7 +53,7 @@ def group_form(request):
     form = GroupForm(request.POST)
     if form.is_valid():
         form.save()
-        form.instance.students.set(form.cleaned_data['students'])
+        form.instance.students.set(form.cleaned_data["students"])
         return redirect("group_list")
     return render(request, "group_form.html", {"form": form})
 
