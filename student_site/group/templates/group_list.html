@@ -12,7 +12,7 @@ table, th, td {
     </tr>
     {% for item in group %}
     <tr>
-         <td align="center">{{ item.id }}</td>
+         <td align="center"><a href="{% url 'add_student' item.id %}">{{ item.id }}</a></td>
         <td>{{ item.name }}</td>
         <td>{{ item.curator }}</td>
         <td>

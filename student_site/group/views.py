@@ -37,7 +37,7 @@ def teacher_edit(request, pk):
         if not groups:
             teacher.delete()
             return redirect("teacher_list")
-        return HttpResponse("<h3>This teacher has groups and cannot be deleted</h3>")
+        return HttpResponse("<h3>This teacher has groups and cannot be deleted<м/h3>")
     return render(request, "teacher_edit.html", {"form": form})
 
 
@@ -54,7 +54,7 @@ def group_form(request):
     if form.is_valid():
         form.save()
         form.instance.students.set(form.cleaned_data["students"])
-        return redirect("group_list")
+        return redirect(reverse("add_student", args={form.instance.pk}))
     return render(request, "group_form.html", {"form": form})
 
 
