@@ -2,6 +2,7 @@ import datetime
 import re
 from datetime import date, timedelta
 
+import phonenumbers
 from django import forms
 from django.forms import SelectDateWidget
 
@@ -90,6 +91,7 @@ class StudentForm(forms.ModelForm):
             "patronymic",
             "birth_date",
             "date_of_admission",
+            "phone",
             "group",
         ]
 
@@ -123,3 +125,15 @@ class StudentForm(forms.ModelForm):
         if date_of_admission < birth_date:
             raise forms.ValidationError("A student cannot enroll before birth")
         return date_of_admission
+
+    def clean_phone(self):
+        phone = self.cleaned_data["phone"]
+        try:
+            parsed = phonenumbers.parse(phone, None)
+            if not phonenumbers.is_valid_number(parsed):
+                raise forms.ValidationError("The phone number is not valid")
+        except phonenumbers.NumberParseException as e:
+            raise forms.ValidationError("The phone number is incorrect")
+        return phonenumbers.format_number(
+            parsed, phonenumbers.PhoneNumberFormat.INTERNATIONAL
+        )

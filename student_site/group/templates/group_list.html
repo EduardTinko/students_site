@@ -12,17 +12,17 @@ table, th, td {
     </tr>
     {% for item in group %}
     <tr>
-         <td align="center"><a href="{% url 'add_student' item.id %}">{{ item.id }}</a></td>
+        <td align="center"><a href="{% url 'add_student' item.id %}">{{ item.id }}</a></td>
         <td>{{ item.name }}</td>
-        <td>{{ item.curator }}</td>
+        <td><a href="{% url 'teacher_edit' item.curator.id %}">{{ item.curator }}</a></td>
         <td>
             {% for student in item.students.all %}
-                <li>
+                <li><a href="{% url 'student_edit' student.id %}">
                     ID: {{ student.id }}
                     FULL NAME: {{ student.first_name }}
                     {{ student.last_name }}
                     {{ student.patronymic }}
-                </li>
+                </a></li>
             {% endfor %}
         </td>
 

@@ -28,8 +28,15 @@ class Student(models.Model):
     patronymic = models.CharField(max_length=50)
     birth_date = models.DateField()
     date_of_admission = models.DateField()
+    phone = models.CharField(max_length=30, null=True)
 
     group = models.ManyToManyField(Group, related_name="students")
 
     def __str__(self):
         return f"{self.id} {self.first_name} {self.last_name} {self.patronymic}"
+
+
+class Log(models.Model):
+    log_path = models.CharField(max_length=50)
+    log_method = models.CharField(max_length=50)
+    execution_time = models.CharField(max_length=50)

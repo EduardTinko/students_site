@@ -11,6 +11,7 @@ table, th, td {
          <th>PATRONYMIC</th>
         <th>BIRTHDATE</th>
         <th>DATE OF ADMISSION</th>
+        <th>PHONE</th>
         <th>GROUPS</th>
     </tr>
     {% for item in student %}
@@ -21,13 +22,14 @@ table, th, td {
         <td>{{ item.patronymic }}</td>
         <td>{{ item.birth_date }}</td>
         <td>{{ item.date_of_admission }}</td>
+        <td>{{ item.phone }}</td>
         <td>
             {% for group in item.group.all %}
-                <li>
+                <li><a href="{% url 'add_student' group.id %}">
                     ID: {{ group.id }}
                     GROUP NAME: {{ group.name }}
                     CURATOR: {{ group.curator }}
-                </li>
+                </a></li>
             {% endfor %}
         </td>
     </tr>

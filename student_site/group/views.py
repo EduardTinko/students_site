@@ -1,4 +1,6 @@
 # Create your views here.
+import time
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
