@@ -1,0 +1,17 @@
+<form style="width:30%" action="" method="post">
+    {% csrf_token %}
+    <h3>NAME GROUP:  {{ group.name }} </h3>
+    <h3>CURATOR:  <a href="{% url 'teacher_edit' group.curator.id %}">{{ group.curator }}</a> </h3>
+    <h3>STUDENTS</h3>
+    {% for student in group.students.all %}
+        <li><a href="{% url 'student_edit' student.id %}">
+            ID [{{ student.id }}]
+            {{ student.first_name }}
+            {{ student.last_name }}
+            {{ student.patronymic }}
+        </a></li>
+    {% endfor %}
+    <h3>ADDED STUDENTS</h3>
+    {{ form.as_p }}
+    <input type="submit" value="OK">
+</form>
